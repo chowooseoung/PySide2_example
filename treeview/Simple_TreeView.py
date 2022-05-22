@@ -31,7 +31,7 @@ class TestItem:
     def data(self, column, role):
         if role == QtCore.Qt.DisplayRole:
             return self._data[column]
-        if role == QtCore.Qt.UserRole:
+        elif role == QtCore.Qt.UserRole:
             return "UserRoleData"
         return None
 
@@ -84,6 +84,8 @@ class TestModel(QtCore.QAbstractItemModel):
             return None
         if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.UserRole:
             return index.internalPointer().data(index.column(), role)
+        elif role == QtCore.Qt.SizeHintRole:
+            return QtCore.QSize(0, 40)
 
     def flags(self, index: PySide2.QtCore.QModelIndex) -> PySide2.QtCore.Qt.ItemFlags:
         if not index.isValid():
