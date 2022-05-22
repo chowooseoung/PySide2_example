@@ -85,7 +85,10 @@ class TestModel(QtCore.QAbstractItemModel):
         if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.UserRole:
             return index.internalPointer().data(index.column(), role)
         elif role == QtCore.Qt.SizeHintRole:
-            return QtCore.QSize(0, 40)
+            if index.internalPointer().parentItem() != self._root:
+                return QtCore.QSize(0, 20)
+            else:
+                return QtCore.QSize(0, 40)
 
     def flags(self, index: PySide2.QtCore.QModelIndex) -> PySide2.QtCore.Qt.ItemFlags:
         if not index.isValid():
